@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+
+	
+	
+	
+$(document).ready(function(){
+$('#screensDiv').hide();
+
+function getEventList(){
+var getUrl='http://localhost:8080/person/get?startTime=2018-12-14T11:00:00-06:00&endTime=2018-12-14T12:00:00-06:00&eventDescription=testdesc&eventLocation=testlocation&eventSummary=EventSummary';
+
+
+ $.get(getUrl, function(data, status){
+    //  alert("Data: " + data + "\nStatus: " + status);
+    });
+	}
+	
+	
+	function createEvent(createUrl){
+	getEventList();
+
+
+
+ $.get(createUrl, function(data, status){
+      alert( data);
+	  $('#screensDiv').show();
+	  var responseData=data.split(':');
+	  $('#eventId').val(responseData[responseData.length-1]);
+    });
+	}
+
+ $("#createButton").click(function(){
+ var startTime=$('#startTime').val();
+	//2018-12-16T11:00:00-06:00
+	//2018-12-16T12:00:00-06:00
+	//iheartmedia.com_534154585f53747564696f31@resource.calendar.google.com
+	"2018-12-14T01:00"
+	var endTime=$('#endTime').val();
+	var description='';
+	var room='';
+	var summary='';
+	//attendees
+	var attendees=$('#attendees').val();
+	var createUrl='http://localhost:8080/person/createEvent?startTime='+startTime+'&endTime='+endTime+'&attendees='+attendees;
+ createEvent(createUrl);
+
+   
+  });
+
+});
+</script>
+</head>
+<body>
+<div id ="createEvent">
+<div id="div1"><h2>Create Event</h2></div>
+
+Start Time: 
+<input type="text" id="startTime"><br/>
+End Time: 
+
+<input type="text" id="endTime"><br/>
+
+Room/Attendees:
+<input type="text" id ="attendees"><br/>
+
+
+
+<button id="createButton">Create Event</button></div>
+
+<br/>
+<br/>
+<div id ="screensDiv">
+<div id="div1"><h2>Screens</h2></div>
+Event Id:
+<input type="text" id="eventId"><br/>
+Start Time: 
+<input type="text" id="startTimeScreen"><br/>
+End Time: 
+
+<input type="text" id="endTimeScreen"><br/>
+Media:
+<input type="text" id ="attendeesScreen"><br/>
+
+
+
+<button id="screensDivButton">Create Event</button>
+</div>
+
+
+</body>
+</html>
+
